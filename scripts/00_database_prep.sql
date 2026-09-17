@@ -10,13 +10,11 @@ USE PortfolioProject;
 
 
 GO
--- Delete Existing Tables
-DROP TABLE IF EXISTS CovidDeaths;
-
-DROP TABLE IF EXISTS CovidVaccinations;
-
 -- Create Tables and Import Data manually using "Import Flat File"
 -- CREATE TABLE for reference only
+-- 1
+DROP TABLE IF EXISTS CovidDeaths;
+
 CREATE TABLE CovidDeaths (
     iso_code                           NVARCHAR (50) NOT NULL,
     continent                          NVARCHAR (50),
@@ -45,6 +43,8 @@ CREATE TABLE CovidDeaths (
     weekly_hosp_admissions             FLOAT        ,
     weekly_hosp_admissions_per_million FLOAT        
 );
+
+DROP TABLE IF EXISTS CovidVaccinations;
 
 CREATE TABLE CovidVaccinations (
     iso_code                              NVARCHAR (50) NOT NULL,
@@ -85,3 +85,31 @@ CREATE TABLE CovidVaccinations (
     life_expectancy                       FLOAT        ,
     human_development_index               FLOAT        
 );
+
+-- 3
+DROP TABLE IF EXISTS NashvilleHousing;
+
+CREATE TABLE NashvilleHousing (
+    UniqueID        INT            PRIMARY KEY,
+    ParcelID        NVARCHAR (50)  NOT NULL,
+    LandUse         NVARCHAR (50) ,
+    PropertyAddress NVARCHAR (MAX),
+    SaleDate        DATETIME      ,
+    SalePrice       NVARCHAR (50) ,
+    LegalReference  NVARCHAR (50) ,
+    SoldAsVacant    CHAR (10)     ,
+    OwnerName       NVARCHAR (100),
+    OwnerAddress    NVARCHAR (MAX),
+    Acreage         FLOAT         ,
+    TaxDistrict     NVARCHAR (50) ,
+    LandValue       INT           ,
+    BuildingValue   INT           ,
+    TotalValue      INT           ,
+    YearBuilt       SMALLINT      ,
+    Bedrooms        TINYINT       ,
+    FullBath        TINYINT       ,
+    HalfBath        TINYINT       
+);
+
+BULK INSERT dbo.TABLE_NAME FROM 'FILE_PATH\FILE_NAME.csv'
+    WITH (FORMAT = 'CSV', FIRSTROW = 2, FIELDTERMINATOR = ';', ROWTERMINATOR = '\n', FIELDQUOTE = '"', CODEPAGE = '65001');
