@@ -4,10 +4,10 @@ USE PortfolioProject;
 GO
 -- See All Datas
 SELECT *
-FROM   dbo.CovidDeaths;
+FROM   PortfolioProject.dbo.CovidDeaths;
 
 SELECT *
-FROM   dbo.CovidVaccinations;
+FROM   PortfolioProject.dbo.CovidVaccinations;
 
 -- Checking Deaths per Cases/Population
 SELECT   location,
@@ -18,7 +18,7 @@ SELECT   location,
          total_deaths,
          CAST (COALESCE ((total_deaths * 1.0 / total_cases) * 100, 0) AS DECIMAL (10, 2)) AS deaths_per_cases_percentage,
          CAST (COALESCE ((total_deaths * 1.0 / NULLIF (population, 0) * 100), 0) AS DECIMAL (10, 2)) AS deaths_per_population_percentage
-FROM     dbo.CovidDeaths
+FROM     PortfolioProject.dbo.CovidDeaths
 -- WHERE    location LIKE 'Vi%'
 WHERE    continent IS NOT NULL
 ORDER BY location, date;
@@ -28,7 +28,7 @@ SELECT   location,
          population,
          MAX(total_cases) AS highest_infection_count,
          CAST (COALESCE ((MAX(total_cases) * 1.0 / NULLIF (population, 0) * 100), 0) AS DECIMAL (10, 2)) AS infection_rate_percentage
-FROM     dbo.CovidDeaths
+FROM     PortfolioProject.dbo.CovidDeaths
 WHERE    continent IS NOT NULL
 GROUP BY location, population
 ORDER BY infection_rate_percentage DESC;
@@ -36,7 +36,7 @@ ORDER BY infection_rate_percentage DESC;
 -- Checking Highest Death Counts per Population Continent
 SELECT   continent,
          MAX(total_deaths) AS highest_death_count
-FROM     dbo.CovidDeaths
+FROM     PortfolioProject.dbo.CovidDeaths
 WHERE    continent IS NOT NULL
 GROUP BY continent
 ORDER BY highest_death_count DESC;
@@ -46,7 +46,7 @@ SELECT   date,
          SUM(new_cases) AS total_cases,
          SUM(new_deaths) AS total_deaths,
          CAST (COALESCE ((SUM(new_deaths) * 1.0 / NULLIF (SUM(new_cases), 0)) * 100, 0) AS DECIMAL (10, 2)) AS deaths_per_cases_percentage
-FROM     dbo.CovidDeaths
+FROM     PortfolioProject.dbo.CovidDeaths
 WHERE    continent IS NOT NULL
 GROUP BY date
 ORDER BY date;
@@ -59,9 +59,9 @@ AS       (SELECT dea.continent,
                  dea.population,
                  vac.new_vaccinations,
                  COALESCE (SUM(vac.new_vaccinations) OVER (PARTITION BY dea.location ORDER BY dea.location, dea.date), 0) AS rolling_people_vaccinated
-          FROM   dbo.CovidDeaths AS dea
+          FROM   PortfolioProject.dbo.CovidDeaths AS dea
                  INNER JOIN
-                 dbo.CovidVaccinations AS vac
+                 PortfolioProject.dbo.CovidVaccinations AS vac
                  ON vac.location = dea.location
                     AND vac.date = dea.date
           WHERE  dea.continent IS NOT NULL)
@@ -89,9 +89,9 @@ SELECT dea.continent,
        dea.population,
        vac.new_vaccinations,
        COALESCE (SUM(vac.new_vaccinations) OVER (PARTITION BY dea.location ORDER BY dea.location, dea.date), 0) AS rolling_people_vaccinated
-FROM   dbo.CovidDeaths AS dea
+FROM   PortfolioProject.dbo.CovidDeaths AS dea
        INNER JOIN
-       dbo.CovidVaccinations AS vac
+       PortfolioProject.dbo.CovidVaccinations AS vac
        ON vac.location = dea.location
           AND vac.date = dea.date
 WHERE  dea.continent IS NOT NULL;
@@ -114,9 +114,9 @@ SELECT dea.continent,
        dea.population,
        vac.new_vaccinations,
        COALESCE (SUM(vac.new_vaccinations) OVER (PARTITION BY dea.location ORDER BY dea.location, dea.date), 0) AS rolling_people_vaccinated
-FROM   dbo.CovidDeaths AS dea
+FROM   PortfolioProject.dbo.CovidDeaths AS dea
        INNER JOIN
-       dbo.CovidVaccinations AS vac
+       PortfolioProject.dbo.CovidVaccinations AS vac
        ON vac.location = dea.location
           AND vac.date = dea.date
 WHERE  dea.continent IS NOT NULL;
