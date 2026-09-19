@@ -10,8 +10,7 @@ USE PortfolioProject;
 
 
 GO
--- Create Tables and Import Data manually using "Import Flat File"
--- CREATE TABLE for reference only
+-- Create Tables
 -- 1
 DROP TABLE IF EXISTS CovidDeaths;
 
@@ -111,5 +110,9 @@ CREATE TABLE NashvilleHousing (
     HalfBath        TINYINT       
 );
 
+-- Set Dateformat into dd/mm/yyyy to fit import data
+SET DATEFORMAT dmy;
+
+-- Import Data using Bulk Insert
 BULK INSERT dbo.TABLE_NAME FROM 'FILE_PATH\FILE_NAME.csv'
-    WITH (FORMAT = 'CSV', FIRSTROW = 2, FIELDTERMINATOR = ';', ROWTERMINATOR = '\n', FIELDQUOTE = '"', CODEPAGE = '65001');
+    WITH (FORMAT = 'CSV', FIRSTROW = 2, FIELDTERMINATOR = ',', ROWTERMINATOR = '\n', FIELDQUOTE = '"', CODEPAGE = '65001');
