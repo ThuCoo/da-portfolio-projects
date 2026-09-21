@@ -19,25 +19,9 @@ FROM   PortfolioProject.dbo.NashvilleHousing AS base
 WHERE  base.PropertyAddress IS NULL;
 
 -- Breaking Down Property Address
-IF EXISTS (SELECT 1
-           FROM   INFORMATION_SCHEMA.COLUMNS
-           WHERE  TABLE_NAME = 'NashvilleHousing'
-                  AND COLUMN_NAME = 'PropertySAddress'
-                  AND TABLE_SCHEMA = 'dbo')
-    BEGIN
-        ALTER TABLE NashvilleHousing DROP COLUMN PropertySAddress;
-    END
+ALTER TABLE NashvilleHousing DROP COLUMN IF EXISTS PropertySAddress;
 
-
-GO
-IF EXISTS (SELECT 1
-           FROM   INFORMATION_SCHEMA.COLUMNS
-           WHERE  TABLE_NAME = 'NashvilleHousing'
-                  AND COLUMN_NAME = 'PropertySCity'
-                  AND TABLE_SCHEMA = 'dbo')
-    BEGIN
-        ALTER TABLE NashvilleHousing DROP COLUMN PropertySCity;
-    END
+ALTER TABLE NashvilleHousing DROP COLUMN IF EXISTS PropertySCity;
 
 
 GO
@@ -53,25 +37,9 @@ SET    PropertySAddress = SUBSTRING(PropertyAddress, 1, CHARINDEX(',', PropertyA
 FROM   PortfolioProject.dbo.NashvilleHousing;
 
 -- Breaking Down Owner Address
-IF EXISTS (SELECT 1
-           FROM   INFORMATION_SCHEMA.COLUMNS
-           WHERE  TABLE_NAME = 'NashvilleHousing'
-                  AND COLUMN_NAME = 'OwnerSAddress'
-                  AND TABLE_SCHEMA = 'dbo')
-    BEGIN
-        ALTER TABLE NashvilleHousing DROP COLUMN OwnerSAddress;
-    END
+ALTER TABLE NashvilleHousing DROP COLUMN IF EXISTS OwnerSAddress;
 
-
-GO
-IF EXISTS (SELECT 1
-           FROM   INFORMATION_SCHEMA.COLUMNS
-           WHERE  TABLE_NAME = 'NashvilleHousing'
-                  AND COLUMN_NAME = 'OwnerSCity'
-                  AND TABLE_SCHEMA = 'dbo')
-    BEGIN
-        ALTER TABLE NashvilleHousing DROP COLUMN OwnerSCity;
-    END
+ALTER TABLE NashvilleHousing DROP COLUMN IF EXISTS OwnerSCity;
 
 
 GO
@@ -81,7 +49,7 @@ IF EXISTS (SELECT 1
                   AND COLUMN_NAME = 'OwnerSState'
                   AND TABLE_SCHEMA = 'dbo')
     BEGIN
-        ALTER TABLE NashvilleHousing DROP COLUMN OwnerSState;
+        ALTER TABLE NashvilleHousing DROP COLUMN IF EXISTS OwnerSState;
     END
 
 
@@ -115,4 +83,4 @@ DELETE RowNumCTE
 WHERE  row_num > 1;
 
 -- Delete Unused Columns (for practice only)
-ALTER TABLE PortfolioProject.dbo.NashvilleHousing DROP COLUMN PropertyAddress, OwnerAddress, TaxDistrict;
+ALTER TABLE PortfolioProject.dbo.NashvilleHousing DROP COLUMN IF EXISTS PropertyAddress, OwnerAddress, TaxDistrict;
