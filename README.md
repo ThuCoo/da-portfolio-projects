@@ -3,14 +3,16 @@
 
 - [Alex's Walkthrough](https://www.youtube.com/playlist?list=PLUaB-1hjhk8H48Pj32z4GZgGWyylqv85f)
 
-1. SQL Data Exploration - 1/4
+1. Data Exploration using SQL - 1/4
 
-2. Tableau Visualization - 2/4
+2. Visualization using Tableau - 2/4
 
 - [Tableau Dashboard](https://public.tableau.com/views/DAPortfolioProject_17895512379650/CovidDashboard?:language=en-US&publish=yes&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link)
 
-3. SQL Data Cleaning - 3/4
+3. Data Cleaning using SQL - 3/4
 
-4. Python Finding Correlation - 4/4
+4. Correlation using Python - 4/4
 
 5. Amazon Web Scraping using Python
+
+6. Automating Crypto Website API Pull using Python
