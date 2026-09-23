@@ -1,1 +1,2 @@
+*.csv filter=lfs diff=lfs merge=lfs -text
 data/6/crypto_api.csv filter=lfs diff=lfs merge=lfs -text
